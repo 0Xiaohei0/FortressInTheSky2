@@ -763,7 +763,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: witch
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: 571359ca88b197a42b5eeff1422bfb00, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 571359ca88b197a42b5eeff1422bfb00, type: 3}
 --- !u!1 &1179996547
 GameObject:
@@ -937,12 +938,12 @@ PrefabInstance:
     - target: {fileID: 1925873226565265912, guid: 2553cec8fdb3eb643bbe9f2ec880c472,
         type: 3}
       propertyPath: m_Center.y
-      value: 0.84
+      value: 0.92
       objectReference: {fileID: 0}
     - target: {fileID: 1925873226565265913, guid: 2553cec8fdb3eb643bbe9f2ec880c472,
         type: 3}
       propertyPath: GroundedOffset
-      value: 0.61
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1925873226565265913, guid: 2553cec8fdb3eb643bbe9f2ec880c472,
         type: 3}
