@@ -43,9 +43,6 @@ namespace StarterAssets
         [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
         public float JumpTimeout = 0.50f;
 
-        [Tooltip("Time required to pass before being able to Cast again. Set to 0f to instantly Cast again")]
-        public float CastTimeout = 0.50f;
-
         [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
         public float FallTimeout = 0.15f;
 
@@ -93,7 +90,6 @@ namespace StarterAssets
         // timeout deltatime
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
-        private float _castTimeoutDelta;
 
         // animation IDs
         private int _animIDSpeed;
@@ -101,7 +97,6 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
-        private int _animIDCasting;
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
         private PlayerInput _playerInput;
@@ -155,20 +150,14 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
-            _castTimeoutDelta = CastTimeout;
         }
 
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
             GroundedCheck();
-
-            Cast();
-            if (!_input.cast)
-            {
-                Move();
-                JumpAndGravity();
-            }
+            Move();
+            JumpAndGravity();
         }
 
         private void LateUpdate()
@@ -183,7 +172,6 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-            _animIDCasting = Animator.StringToHash("Casting");
         }
 
         private void GroundedCheck()
@@ -359,21 +347,6 @@ namespace StarterAssets
             }
         }
 
-        private void Cast()
-        {
-            Debug.Log(_input.cast);
-            _animator.SetBool(_animIDCasting, _input.cast);
-            if (_hasAnimator)
-            {
-                if (_input.cast)
-                    Invoke(nameof(SetCastToFalse), 2f);
-            }
-        }
-
-        private void SetCastToFalse()
-        {
-            _input.cast = false;
-        }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
         {
