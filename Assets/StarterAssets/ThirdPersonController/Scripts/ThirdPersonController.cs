@@ -101,14 +101,14 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
         private PlayerInput _playerInput;
 #endif
-        private Animator _animator;
+        public Animator _animator;
         private CharacterController _controller;
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
 
         private const float _threshold = 0.01f;
 
-        private bool _hasAnimator;
+        public bool _hasAnimator;
 
         private bool IsCurrentDeviceMouse
         {
@@ -155,9 +155,12 @@ namespace StarterAssets
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
-            GroundedCheck();
-            Move();
-            JumpAndGravity();
+            if (!_input.cast)
+            {
+                GroundedCheck();
+                Move();
+                JumpAndGravity();
+            }
         }
 
         private void LateUpdate()

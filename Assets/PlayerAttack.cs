@@ -4,11 +4,14 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private StarterAssetsInputs _input;
+    private ThirdPersonController thirdPersonController;
     [SerializeField] private GameObject fireball;
     [SerializeField] private Transform firePoint;
     [SerializeField] private int fireballSpeed;
     [SerializeField] private float RandomArea;
     [SerializeField] private List<Rigidbody> fireBallArray;
+
+    private int _animIDCast;
 
     [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
     public float fireballCoolDown;
@@ -19,7 +22,9 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        thirdPersonController = GetComponent<ThirdPersonController>();
         _input = GetComponent<StarterAssetsInputs>();
+        _animIDCast = Animator.StringToHash("Cast");
     }
 
     // Update is called once per frame
@@ -29,6 +34,10 @@ public class PlayerAttack : MonoBehaviour
 
         if (_input.cast && fireballTimer <= 0)
         {
+            if (thirdPersonController._hasAnimator)
+            {
+                thirdPersonController._animator.SetBool(_animIDCast, _input.cast);
+            }
             fireballTimer = fireballCoolDown;
             Vector3 finalPosition = new Vector3(firePoint.position.x + Random.value * RandomArea, firePoint.position.y + Random.value * RandomArea, firePoint.position.z);
             GameObject spawnedFireball = Instantiate(fireball, finalPosition, firePoint.rotation);
@@ -38,11 +47,14 @@ public class PlayerAttack : MonoBehaviour
         }
         if (castLastFrame && !_input.cast)
         {
+            if (thirdPersonController._hasAnimator)
+            {
+                thirdPersonController._animator.SetBool(_animIDCast, _input.cast);
+            }
             foreach (Rigidbody fireballRB in fireBallArray)
             {
                 fireballRB.AddForce(fireballSpeed * firePoint.transform.forward);
             }
-
         }
 
         castLastFrame = _input.cast;
