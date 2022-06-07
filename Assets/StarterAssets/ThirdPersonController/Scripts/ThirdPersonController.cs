@@ -155,12 +155,9 @@ namespace StarterAssets
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
-            if (!_input.cast)
-            {
-                GroundedCheck();
-                Move();
-                JumpAndGravity();
-            }
+            GroundedCheck();
+            Move();
+            JumpAndGravity();
         }
 
         private void LateUpdate()
