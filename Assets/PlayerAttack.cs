@@ -30,12 +30,18 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float elapsedTime;
     [SerializeField] private float StartingLerpValue;
 
+    [Header("CastAim")]
+    [SerializeField] private LayerMask MouseColliderLayerMask;
+    [SerializeField] private GameObject playerCursor;
+
     //[SerializeField] private float desiredDurationRecoil;
     //[SerializeField] private float elapsedTimeRecoil;
 
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         thirdPersonController = GetComponent<ThirdPersonController>();
         _input = GetComponent<StarterAssetsInputs>();
         _animIDCast = Animator.StringToHash("Cast");
@@ -46,6 +52,8 @@ public class PlayerAttack : MonoBehaviour
     {
         fireballTimer -= Time.deltaTime;
         CastAnimationLerp();
+        playerCursor.transform.position = GetMousePosition();
+        Debug.Log(playerCursor.transform.position);
 
         if (_input.cast && fireballTimer <= 0)
         {
@@ -54,8 +62,8 @@ public class PlayerAttack : MonoBehaviour
                 //thirdPersonController._animator.SetBool(_animIDCast, _input.cast);
             }
             fireballTimer = fireballCoolDown;
-            Vector3 finalPosition = new Vector3(firePoint.position.x + Random.value * RandomArea, firePoint.position.y + Random.value * RandomArea, firePoint.position.z);
-            GameObject spawnedFireball = Instantiate(fireball, finalPosition, firePoint.rotation);
+            //Vector3 finalPosition = new Vector3(firePoint.position.x + Random.value * RandomArea, firePoint.position.y + Random.value * RandomArea, firePoint.position.z);
+            GameObject spawnedFireball = Instantiate(fireball, firePoint.position, firePoint.rotation);
             // Debug.Log(fireballSpeed * Vector3.forward);
             //Fireball.GetComponent<Rigidbody>().AddForce(fireballSpeed * firePoint.transform.forward);
             fireBallArray.Add(spawnedFireball.GetComponent<Rigidbody>());
@@ -68,7 +76,7 @@ public class PlayerAttack : MonoBehaviour
             }
             foreach (Rigidbody fireballRB in fireBallArray)
             {
-                fireballRB.AddForce(fireballSpeed * firePoint.transform.forward);
+                fireballRB.AddForce(fireballSpeed * (playerCursor.transform.position - firePoint.transform.position));
             }
         }
 
@@ -92,6 +100,19 @@ public class PlayerAttack : MonoBehaviour
         if (castLastFrame && !_input.cast)
         {
             DOVirtual.Float(0, 1, .1f, (x) => HandRecoil.weight = x).OnComplete(() => DOVirtual.Float(1, 0, .3f, (x) => HandRecoil.weight = x));
+        }
+    }
+
+    private Vector3 GetMousePosition()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, MouseColliderLayerMask))
+        {
+            return raycastHit.point;
+        }
+        else
+        {
+            return Vector3.zero;
         }
     }
 }
