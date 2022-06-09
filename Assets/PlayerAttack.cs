@@ -33,6 +33,7 @@ public class PlayerAttack : MonoBehaviour
     [Header("CastAim")]
     [SerializeField] private LayerMask MouseColliderLayerMask;
     [SerializeField] private GameObject playerCursor;
+    [SerializeField] private GameObject magicCircle;
 
     //[SerializeField] private float desiredDurationRecoil;
     //[SerializeField] private float elapsedTimeRecoil;
@@ -50,10 +51,14 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         fireballTimer -= Time.deltaTime;
         CastAnimationLerp();
         playerCursor.transform.position = GetMousePosition();
-        Debug.Log(playerCursor.transform.position);
+        //Debug.Log(playerCursor.transform.position);
+
+        magicCircle.SetActive(_input.cast);
 
         if (_input.cast && fireballTimer <= 0)
         {
@@ -68,6 +73,12 @@ public class PlayerAttack : MonoBehaviour
             //Fireball.GetComponent<Rigidbody>().AddForce(fireballSpeed * firePoint.transform.forward);
             fireBallArray.Add(spawnedFireball.GetComponent<Rigidbody>());
         }
+
+        foreach (Rigidbody fireballRB in fireBallArray)
+        {
+            fireballRB.position = firePoint.position;
+        }
+
         if (castLastFrame && !_input.cast)
         {
             if (thirdPersonController._hasAnimator)
@@ -78,6 +89,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 fireballRB.AddForce(fireballSpeed * (playerCursor.transform.position - firePoint.transform.position));
             }
+            fireBallArray = new List<Rigidbody>();
         }
 
         castLastFrame = _input.cast;
