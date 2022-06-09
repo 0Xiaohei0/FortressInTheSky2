@@ -1,20 +1,16 @@
 using DG.Tweening;
-using StarterAssets;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
 public class PlayerAttack : MonoBehaviour
 {
-    private ThirdPersonController thirdPersonController;
     [SerializeField] private bool inputCast;
     [SerializeField] private GameObject fireball;
     [SerializeField] private Transform firePoint;
     [SerializeField] private int fireballSpeed;
     [SerializeField] private float RandomArea;
     [SerializeField] private List<Rigidbody> fireBallArray;
-
-    private int _animIDCast;
 
     [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
     public float fireballCoolDown;
@@ -31,9 +27,9 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float StartingLerpValue;
 
     [Header("CastAim")]
-    [SerializeField] private LayerMask MouseColliderLayerMask;
-    [SerializeField] private GameObject playerCursor;
+    [SerializeField] private GameObject playerCursorIcon;
     [SerializeField] private GameObject magicCircle;
+    private PlayerCursor playerCursor;
 
     //[SerializeField] private float desiredDurationRecoil;
     //[SerializeField] private float elapsedTimeRecoil;
@@ -43,9 +39,7 @@ public class PlayerAttack : MonoBehaviour
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        thirdPersonController = GetComponent<ThirdPersonController>();
-        _animIDCast = Animator.StringToHash("Cast");
-
+        playerCursor = GetComponent<PlayerCursor>();
     }
 
     // Update is called once per frame
@@ -55,9 +49,9 @@ public class PlayerAttack : MonoBehaviour
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        playerCursorIcon.transform.position = playerCursor.MousePosition;
         fireballTimer -= Time.deltaTime;
         CastAnimationLerp();
-        playerCursor.transform.position = GetMousePosition();
         //Debug.Log(playerCursor.transform.position);
 
         magicCircle.SetActive(inputCast);
@@ -81,7 +75,7 @@ public class PlayerAttack : MonoBehaviour
         {
             foreach (Rigidbody fireballRB in fireBallArray)
             {
-                fireballRB.AddForce(fireballSpeed * (playerCursor.transform.position - firePoint.transform.position));
+                fireballRB.AddForce(fireballSpeed * (playerCursorIcon.transform.position - firePoint.transform.position));
             }
             fireBallArray = new List<Rigidbody>();
         }
@@ -106,19 +100,6 @@ public class PlayerAttack : MonoBehaviour
         if (castLastFrame && !inputCast)
         {
             DOVirtual.Float(0, 1, .1f, (x) => HandRecoil.weight = x).OnComplete(() => DOVirtual.Float(1, 0, .3f, (x) => HandRecoil.weight = x));
-        }
-    }
-
-    private Vector3 GetMousePosition()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, MouseColliderLayerMask))
-        {
-            return raycastHit.point;
-        }
-        else
-        {
-            return Vector3.zero;
         }
     }
 }

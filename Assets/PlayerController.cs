@@ -8,30 +8,26 @@ public class PlayerController : MonoBehaviour
     Animator myAnim;
 
     bool facingRight;
-
+    private PlayerCursor playerCursor;
     // Start is called before the first frame update
     void Start()
     {
         myRB = GetComponent<Rigidbody>();
         myAnim = GetComponent<Animator>();
+        playerCursor = GetComponent<PlayerCursor>();
         facingRight = true;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     private void FixedUpdate()
     {
         float move = Input.GetAxisRaw("Horizontal");
-        myAnim.SetFloat("speed", Mathf.Abs(move));
+        myAnim.SetFloat("speed", move * (facingRight ? 1 : -1));
+        myAnim.SetBool("isWalking", Mathf.Abs(move) > 0);
 
         myRB.velocity = new Vector3(0, myRB.velocity.y, move * runSpeed);
 
-        if (move > 0 && !facingRight) Flip();
-        else if (move < 0 && facingRight) Flip();
+        if (playerCursor.MousePosition.z > transform.position.z && !facingRight) Flip();
+        else if (playerCursor.MousePosition.z < transform.position.z && facingRight) Flip();
 
     }
 
