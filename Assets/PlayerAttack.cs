@@ -6,8 +6,8 @@ using UnityEngine.Animations.Rigging;
 
 public class PlayerAttack : MonoBehaviour
 {
-    private StarterAssetsInputs _input;
     private ThirdPersonController thirdPersonController;
+    [SerializeField] private bool inputCast;
     [SerializeField] private GameObject fireball;
     [SerializeField] private Transform firePoint;
     [SerializeField] private int fireballSpeed;
@@ -44,13 +44,15 @@ public class PlayerAttack : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         thirdPersonController = GetComponent<ThirdPersonController>();
-        _input = GetComponent<StarterAssetsInputs>();
         _animIDCast = Animator.StringToHash("Cast");
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        inputCast = Input.GetMouseButton(0);
+
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         fireballTimer -= Time.deltaTime;
@@ -58,14 +60,10 @@ public class PlayerAttack : MonoBehaviour
         playerCursor.transform.position = GetMousePosition();
         //Debug.Log(playerCursor.transform.position);
 
-        magicCircle.SetActive(_input.cast);
+        magicCircle.SetActive(inputCast);
 
-        if (_input.cast && fireballTimer <= 0)
+        if (inputCast && fireballTimer <= 0)
         {
-            if (thirdPersonController._hasAnimator)
-            {
-                //thirdPersonController._animator.SetBool(_animIDCast, _input.cast);
-            }
             fireballTimer = fireballCoolDown;
             //Vector3 finalPosition = new Vector3(firePoint.position.x + Random.value * RandomArea, firePoint.position.y + Random.value * RandomArea, firePoint.position.z);
             GameObject spawnedFireball = Instantiate(fireball, firePoint.position, firePoint.rotation);
@@ -79,12 +77,8 @@ public class PlayerAttack : MonoBehaviour
             fireballRB.position = firePoint.position;
         }
 
-        if (castLastFrame && !_input.cast)
+        if (castLastFrame && !inputCast)
         {
-            if (thirdPersonController._hasAnimator)
-            {
-                //thirdPersonController._animator.SetBool(_animIDCast, _input.cast);
-            }
             foreach (Rigidbody fireballRB in fireBallArray)
             {
                 fireballRB.AddForce(fireballSpeed * (playerCursor.transform.position - firePoint.transform.position));
@@ -92,12 +86,12 @@ public class PlayerAttack : MonoBehaviour
             fireBallArray = new List<Rigidbody>();
         }
 
-        castLastFrame = _input.cast;
+        castLastFrame = inputCast;
     }
 
     private void CastAnimationLerp()
     {
-        if (_input.cast)
+        if (inputCast)
         {
             DOVirtual.Float(HandRig.weight, 1f, 0.2f, SetAimRigWeight);
         }
@@ -109,7 +103,7 @@ public class PlayerAttack : MonoBehaviour
         {
             HandRig.weight = weight;
         }
-        if (castLastFrame && !_input.cast)
+        if (castLastFrame && !inputCast)
         {
             DOVirtual.Float(0, 1, .1f, (x) => HandRecoil.weight = x).OnComplete(() => DOVirtual.Float(1, 0, .3f, (x) => HandRecoil.weight = x));
         }
