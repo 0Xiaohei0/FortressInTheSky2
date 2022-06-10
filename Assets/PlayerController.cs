@@ -44,9 +44,7 @@ public class PlayerController : MonoBehaviour
         {
             if (grounded)
             {
-                grounded = false;
-                myRB.velocity = Vector3.up * jumpHeight;
-                //myAnim.SetBool("jump", true);
+                HandleJump();
             }
             else
             {
@@ -54,10 +52,8 @@ public class PlayerController : MonoBehaviour
                 {
                     if (canDoubleJump)
                     {
-                        grounded = false;
-                        myRB.velocity = Vector3.up * jumpHeight;
+                        HandleJump();
                         Instantiate(doubleJumpEffect, groundCheck.position, groundCheck.rotation);
-                        //myAnim.SetBool("jump", true);
                         canDoubleJump = false;
                     }
                 }
@@ -70,13 +66,26 @@ public class PlayerController : MonoBehaviour
         //myAnim.SetFloat("speed", move * (facingRight ? 1 : -1));
         myAnim.SetFloat("velocity", moveSmooth * (facingRight ? 1 : -1) + 1);
         //myAnim.SetFloat("verticalSpeed", myRB.velocity.y);
-        //myAnim.SetBool("grounded", grounded);
-        myAnim.SetBool("isWalking", Mathf.Abs(move) > 0);
+        myAnim.SetBool("grounded", grounded);
+        //myAnim.SetBool("isWalking", Mathf.Abs(move) > 0);
 
         myRB.velocity = new Vector3(0, myRB.velocity.y, move * runSpeed);
 
         if (playerCursor.MousePosition.z > transform.position.z && !facingRight) Flip();
         else if (playerCursor.MousePosition.z < transform.position.z && facingRight) Flip();
+    }
+
+    private void HandleJump()
+    {
+        grounded = false;
+        myRB.velocity = Vector3.up * jumpHeight;
+        myAnim.SetBool("jump", true);
+        Invoke(nameof(SetAnimJumpToFalse), 0.1f);
+    }
+
+    private void SetAnimJumpToFalse()
+    {
+        myAnim.SetBool("jump", false);
     }
 
     void Flip()
