@@ -12,10 +12,5 @@ public class SpinTwoCircle : MonoBehaviour
     {
         circle1.transform.Rotate(Vector3.up * Time.deltaTime * spinSpeed);
         circle2.transform.Rotate(Vector3.up * Time.deltaTime * -spinSpeed);
-        //Vector3 eulers = circle1.transform.rotation.eulerAngles;
-        //circle1.transform.rotation = Quaternion.Euler(new Vector3(eulers.x + spinSpeed, eulers.y, eulers.z));
-
-        //Vector3 eulers2 = circle2.transform.rotation.eulerAngles;
-        //circle2.transform.rotation = Quaternion.Euler(new Vector3(eulers2.x - spinSpeed, eulers2.y, eulers2.z));
     }
 }

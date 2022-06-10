@@ -5,17 +5,28 @@ public class SpawnedAutoScale : MonoBehaviour
 {
     public float openTime;
     public float duration;
-    private Vector3 startingScale;
+    [SerializeField] private Vector3 startingScale;
+    public bool destory;
     private void Awake()
     {
+        Debug.Log("Awake");
         startingScale = transform.localScale;
         transform.localScale = Vector3.zero;
     }
-    // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
+        Debug.Log("Enable");
         transform.DOScale(startingScale, openTime);
-        Invoke(nameof(ScaleDownAndDestroy), openTime + duration);
+        if (destory)
+        {
+            Invoke(nameof(ScaleDownAndDestroy), openTime + duration);
+        }
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("Disable");
+        transform.localScale = Vector3.zero;
     }
 
     private void ScaleDownAndDestroy()

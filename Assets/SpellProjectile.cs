@@ -10,8 +10,6 @@ public class SpellProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("hit");
-
         if (HitableLayers == (HitableLayers | (1 << other.gameObject.layer)))
         {
             Explode();
