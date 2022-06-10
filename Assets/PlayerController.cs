@@ -65,7 +65,10 @@ public class PlayerController : MonoBehaviour
 
         }
         float move = Input.GetAxisRaw("Horizontal");
-        myAnim.SetFloat("speed", move * (facingRight ? 1 : -1));
+        float moveSmooth = Input.GetAxis("Horizontal");
+
+        //myAnim.SetFloat("speed", move * (facingRight ? 1 : -1));
+        myAnim.SetFloat("velocity", moveSmooth * (facingRight ? 1 : -1) + 1);
         //myAnim.SetFloat("verticalSpeed", myRB.velocity.y);
         //myAnim.SetBool("grounded", grounded);
         myAnim.SetBool("isWalking", Mathf.Abs(move) > 0);
