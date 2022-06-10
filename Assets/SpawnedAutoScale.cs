@@ -5,14 +5,16 @@ public class SpawnedAutoScale : MonoBehaviour
 {
     public float openTime;
     public float duration;
+    private Vector3 startingScale;
     private void Awake()
     {
+        startingScale = transform.localScale;
         transform.localScale = Vector3.zero;
     }
     // Start is called before the first frame update
     void Start()
     {
-        transform.DOScale(Vector3.one, openTime);
+        transform.DOScale(startingScale, openTime);
         Invoke(nameof(ScaleDownAndDestroy), openTime + duration);
     }
 
