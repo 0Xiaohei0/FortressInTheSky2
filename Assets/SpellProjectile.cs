@@ -3,8 +3,10 @@ using UnityEngine;
 public class SpellProjectile : MonoBehaviour
 {
 
+    [SerializeField] private int Damage;
     [SerializeField] private float explosionRadius;
     [SerializeField] private float explosionForce;
+    [SerializeField] private Vector3 explosionOffset;
     [SerializeField] private GameObject explosionEffect;
     [SerializeField] private LayerMask HitableLayers;
 
@@ -12,6 +14,7 @@ public class SpellProjectile : MonoBehaviour
     {
         if (HitableLayers == (HitableLayers | (1 << other.gameObject.layer)))
         {
+
             Explode();
         }
     }
@@ -25,7 +28,13 @@ public class SpellProjectile : MonoBehaviour
             Rigidbody rb = nearbyObjct.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+                rb.AddExplosionForce(explosionForce, transform.position + explosionOffset, explosionRadius);
+            }
+
+            Damagable damagable = nearbyObjct.GetComponent<Damagable>();
+            if (damagable != null)
+            {
+                damagable.takeDamage(Damage);
             }
         }
         Destroy(gameObject);

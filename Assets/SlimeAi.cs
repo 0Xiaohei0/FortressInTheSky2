@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SlimeAi : MonoBehaviour
+public class SlimeAi : Damagable
 {
     [SerializeField] private Transform jumpDirection;
     [SerializeField] private float jumpForce;
@@ -9,6 +9,7 @@ public class SlimeAi : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentHealth = maxHealth;
         rb = GetComponent<Rigidbody>();
         InvokeRepeating(nameof(Jump), 4f, jumpInterVal);
     }

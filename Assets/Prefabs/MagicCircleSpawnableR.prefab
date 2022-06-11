@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 3862295617481111527}
   - component: {fileID: 678563811}
   m_Layer: 3
-  m_Name: MagicCircleSpawnable
+  m_Name: MagicCircleSpawnableR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -279,7 +279,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: aa9fa45e9c087c34a9088df09084857e, type: 2}
+  - {fileID: 2100000, guid: 8186694bb60db07419472498f28ef72f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -362,7 +362,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: aa9fa45e9c087c34a9088df09084857e, type: 2}
+  - {fileID: 2100000, guid: 8186694bb60db07419472498f28ef72f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
