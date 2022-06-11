@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpHeight;
     [SerializeField] bool grounded;
 
-    bool facingRight;
+    public bool facingRight;
     private PlayerCursor playerCursor;
     private bool canDoubleJump;
     [SerializeField] private GameObject doubleJumpEffect;
