@@ -6,7 +6,10 @@ public class PlayerStat : MonoBehaviour
     public int GemAmount;
     public int Health;
     public HealthBar healthBar;
+    public HealthBar manaBar;
+    public int MaxMana;
     public int Mana;
+
     // Start is called before the first frame update
     void Start()
     {
