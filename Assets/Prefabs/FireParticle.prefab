@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb33599883d452947a77c92e312bf1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 50
+  Damage: 20
   explosionRadius: 2.6
   explosionForce: 700
   explosionOffset: {x: 0, y: 0, z: 0}

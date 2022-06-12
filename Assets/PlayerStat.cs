@@ -7,13 +7,22 @@ public class PlayerStat : MonoBehaviour
     public int Health;
     public HealthBar healthBar;
     public HealthBar manaBar;
-    public int MaxMana;
-    public int Mana;
+    public float MaxMana;
+    public float Mana;
+    public float ManaRegenInterval;
+    public float ManaRegenAmount;
+
+    public int ManaRegenLevel;
+    public int ManaRegenCost;
+    public float ManaRegenAmountMultiplier;
+    public float ManaRegenCostMultiplier;
 
     // Start is called before the first frame update
     void Start()
     {
         Health = MaxHealth;
+        Mana = MaxMana;
+        InvokeRepeating(nameof(RegenMana), 0f, ManaRegenInterval);
     }
 
     public void takeDamage(int damage)
@@ -24,5 +33,33 @@ public class PlayerStat : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void useMana(int mana)
+    {
+        Mana -= mana;
+        manaBar.UpdateHealth((float)Mana / MaxMana);
+    }
+    public void RegenMana()
+    {
+        Mana += ManaRegenAmount;
+        Mana = Mathf.Min(MaxMana, Mana);
+        manaBar.UpdateHealth((float)Mana / MaxMana);
+    }
+
+    public void manaRegenLevelUp()
+    {
+        GemAmount -= getManaRegenCost();
+        ManaRegenLevel++;
+        ManaRegenAmount = ManaRegenAmount * Mathf.Pow(ManaRegenAmountMultiplier, ManaRegenLevel);
+    }
+
+    public float getManaRegenSpeed()
+    {
+        return ManaRegenAmount / ManaRegenInterval;
+    }
+    public int getManaRegenCost()
+    {
+        return Mathf.RoundToInt(ManaRegenCost * Mathf.Pow(ManaRegenCostMultiplier, ManaRegenLevel));
     }
 }

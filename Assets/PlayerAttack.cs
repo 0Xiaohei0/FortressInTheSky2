@@ -12,12 +12,12 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private int fireballSpeed;
     [SerializeField] private float RandomArea;
     [SerializeField] private List<Rigidbody> fireBallArray;
+    private PlayerStat playerStat;
+    [SerializeField] int manaCost;
 
     [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
     public float fireballCoolDown;
     public float fireballTimer;
-
-    private bool castLastFrame;
 
     [Header("CastAnimation")]
     [SerializeField] private Rig HandRig;
@@ -43,6 +43,7 @@ public class PlayerAttack : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         playerCursor = GetComponent<PlayerCursor>();
+        playerStat = GetComponent<PlayerStat>();
     }
 
     // Update is called once per frame
@@ -62,10 +63,14 @@ public class PlayerAttack : MonoBehaviour
 
         if (inputAim && inputCast && fireballTimer <= 0)
         {
-            fireballTimer = fireballCoolDown;
-            GameObject spawnedFireball = Instantiate(fireball, firePoint.position, firePoint.rotation);
-            spawnedFireball.GetComponent<Rigidbody>().AddForce(fireballSpeed * (playerCursorIcon.transform.position - firePoint.transform.position));
-            fired = true;
+            if (playerStat.Mana >= manaCost)
+            {
+                playerStat.useMana(manaCost);
+                fireballTimer = fireballCoolDown;
+                GameObject spawnedFireball = Instantiate(fireball, firePoint.position, firePoint.rotation);
+                spawnedFireball.GetComponent<Rigidbody>().AddForce(fireballSpeed * (playerCursorIcon.transform.position - firePoint.transform.position));
+                fired = true;
+            }
         }
     }
 

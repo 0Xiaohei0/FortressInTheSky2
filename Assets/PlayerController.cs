@@ -13,11 +13,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] float jumpHeight;
     [SerializeField] bool grounded;
+    private PlayerStat playerStat;
 
     public bool facingRight;
     private PlayerCursor playerCursor;
     private bool canDoubleJump;
     [SerializeField] private GameObject doubleJumpEffect;
+    [SerializeField] private int doubleJumpManaCost;
 
 
     // Start is called before the first frame update
@@ -26,9 +28,15 @@ public class PlayerController : MonoBehaviour
         myRB = GetComponent<Rigidbody>();
         myAnim = GetComponent<Animator>();
         playerCursor = GetComponent<PlayerCursor>();
+        playerStat = GetComponent<PlayerStat>();
         facingRight = true;
     }
 
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(groundCheck.position, groundCheckRadius);
+    }
     private void Update()
     {
         groundCollisions = Physics.OverlapSphere(groundCheck.position, groundCheckRadius, groundLayer);
@@ -50,8 +58,9 @@ public class PlayerController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    if (canDoubleJump)
+                    if (canDoubleJump && playerStat.Mana >= doubleJumpManaCost)
                     {
+                        playerStat.useMana(doubleJumpManaCost);
                         HandleJump();
                         Instantiate(doubleJumpEffect, groundCheck.position, groundCheck.rotation);
                         canDoubleJump = false;

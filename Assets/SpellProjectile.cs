@@ -22,6 +22,7 @@ public class SpellProjectile : MonoBehaviour
     public void Explode()
     {
         Instantiate(explosionEffect, transform.position, transform.rotation);
+        CinemachineShake.Instance.ShakeCamera(2f, 0.2f);
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (Collider nearbyObjct in colliders)
         {
