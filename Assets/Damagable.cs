@@ -8,10 +8,6 @@ public class Damagable : MonoBehaviour
     public GameObject dropLootPrefab;
     public GameObject dropLootTarget;
 
-    private void Start()
-    {
-        dropLootTarget = GameObject.FindGameObjectWithTag("DropLootTracker");
-    }
 
     public void takeDamage(int damage)
     {

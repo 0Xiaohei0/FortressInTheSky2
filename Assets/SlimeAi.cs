@@ -12,6 +12,8 @@ public class SlimeAi : Damagable
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody>();
         InvokeRepeating(nameof(Jump), 4f, jumpInterVal);
+        dropLootTarget = GameObject.FindWithTag("DropLootTracker");
+        Debug.Log(dropLootTarget);
     }
 
     private void Jump()
