@@ -9,6 +9,7 @@ public class SpellProjectile : MonoBehaviour
     [SerializeField] private Vector3 explosionOffset;
     [SerializeField] private GameObject explosionEffect;
     [SerializeField] private LayerMask HitableLayers;
+    [SerializeField] private LayerMask ExplosionHitableLayers;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -29,7 +30,10 @@ public class SpellProjectile : MonoBehaviour
             Rigidbody rb = nearbyObjct.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.AddExplosionForce(explosionForce, transform.position + explosionOffset, explosionRadius);
+                if (ExplosionHitableLayers == (ExplosionHitableLayers | (1 << rb.gameObject.layer)))
+                {
+                    rb.AddExplosionForce(explosionForce, transform.position + explosionOffset, explosionRadius);
+                }
             }
 
             Damagable damagable = nearbyObjct.GetComponent<Damagable>();

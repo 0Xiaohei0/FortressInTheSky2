@@ -26,7 +26,6 @@ public class SlimeAi : Damagable
         Invoke(nameof(Jump), randomTime);
 
         dropLootTarget = GameObject.FindWithTag("DropLootTracker");
-        Debug.Log(dropLootTarget);
     }
     private void Update()
     {

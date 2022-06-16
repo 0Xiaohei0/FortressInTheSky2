@@ -69,8 +69,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  MinModifier: 60
-  MaxModifier: 90
+  MinModifier: 30
+  MaxModifier: 50
   isFollowing: 0
 --- !u!136 &8541766019605836684
 CapsuleCollider:

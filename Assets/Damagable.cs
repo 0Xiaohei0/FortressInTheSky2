@@ -23,7 +23,6 @@ public class Damagable : MonoBehaviour
             for (int i = 0; i < maxHealth / 10; i++)
             {
                 Vector3 Offset = new(0, Random.Range(1f, 2f), Random.Range(1f, 2f));
-                Debug.Log(Offset);
                 var loot = Instantiate(dropLootPrefab, transform.position + Offset, Quaternion.identity);
                 loot.GetComponent<Follow>().target = dropLootTarget.transform;
             }

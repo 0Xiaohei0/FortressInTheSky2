@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5898425761207316624}
   - component: {fileID: 526260444239204336}
   m_Layer: 9
-  m_Name: FireParticle
+  m_Name: HoverbotBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,14 +54,14 @@ MonoBehaviour:
   explosionRadius: 2.6
   explosionForce: 700
   explosionOffset: {x: 0, y: 0, z: 0}
-  explosionEffect: {fileID: 4291142568844124863, guid: 87da9ab6a33471a4693d2976eae1b686,
+  explosionEffect: {fileID: 4291142568844124863, guid: 81f13cb10d32d2d4c9eea1b83b890e29,
     type: 3}
   HitableLayers:
     serializedVersion: 2
-    m_Bits: 648
+    m_Bits: 776
   ExplosionHitableLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
 --- !u!198 &579001713950159616
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -314,8 +314,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2
-      minScalar: 1
+      scalar: 1.22
+      minScalar: 0.16
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1343,8 +1343,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.66882944, b: 0.043137252, a: 1}
-        key1: {r: 1, g: 0.042452812, b: 0.042452812, a: 1}
+        key0: {r: 0.36009255, g: 0.56486654, b: 0.6415094, a: 1}
+        key1: {r: 0.043137252, g: 0.4362429, b: 1, a: 1}
         key2: {r: 1, g: 0.042452812, b: 0.042452812, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
