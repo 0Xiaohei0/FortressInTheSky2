@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
             canDoubleJump = true;
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (grounded)
             {

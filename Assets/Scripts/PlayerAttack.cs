@@ -69,7 +69,6 @@ public class PlayerAttack : MonoBehaviour
                 fireballTimer = fireballCoolDown;
                 GameObject spawnedFireball = Instantiate(fireball, firePoint.position, firePoint.rotation);
                 spawnedFireball.GetComponent<Rigidbody>().AddForce(fireballSpeed * (playerCursorIcon.transform.position - firePoint.transform.position).normalized);
-                Debug.Log((playerCursorIcon.transform.position - firePoint.transform.position).normalized);
                 fired = true;
             }
         }

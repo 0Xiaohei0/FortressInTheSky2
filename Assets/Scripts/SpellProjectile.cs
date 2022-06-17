@@ -10,6 +10,7 @@ public class SpellProjectile : MonoBehaviour
     [SerializeField] private GameObject explosionEffect;
     [SerializeField] private LayerMask HitableLayers;
     [SerializeField] private LayerMask ExplosionHitableLayers;
+    public GameObject damageText;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -40,6 +41,12 @@ public class SpellProjectile : MonoBehaviour
             if (damagable != null)
             {
                 damagable.takeDamage(Damage);
+                if (damageText != null)
+                {
+                    Debug.Log("text");
+                    DamageIndicator indicator = Instantiate(damageText, transform.position, Quaternion.identity).GetComponent<DamageIndicator>();
+                    indicator.SetDamageText(Damage);
+                }
             }
         }
         Destroy(gameObject);
