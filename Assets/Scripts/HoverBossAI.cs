@@ -26,6 +26,8 @@ public class HoverBossAI : Damagable
     public bool isFiringStage2;
     public float Stage2FireInterval;
 
+    public GameOverManager gameOverManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -125,7 +127,11 @@ public class HoverBossAI : Damagable
         if (isFiringStage2)
             Invoke(nameof(Stage2Fire), Stage2FireInterval);
     }
-
+    private void OnDisable()
+    {
+        Debug.Log("ending");
+        gameOverManager.EndGame();
+    }
     public void SetEnrageMat()
     {
         hoverBossCore.material = hoverBossEnrageMat;

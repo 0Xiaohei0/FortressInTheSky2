@@ -22,8 +22,11 @@ public class BossTrigger : MonoBehaviour
         if (Player.transform.position.z < transform.position.z)
         {
             bossCam.Priority = 9;
+
             HoverBossUI.SetActive(false);
-            HoverBoss.SetActive(false);
+            if (HoverBoss != null)
+                HoverBoss.SetActive(false);
+            bossTriggerHitbox.isTrigger = true;
         }
     }
     private void OnTriggerExit(Collider other)
