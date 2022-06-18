@@ -69,6 +69,7 @@ public class PlayerShield : MonoBehaviour
                             {
                                 rb.velocity = -rb.velocity;
                             }
+                            sp.doDamageToPlayer = false;
                             collider.gameObject.tag = "DeflectedBullet";
                             sp.Damage = (int)(sp.Damage * damageMultiplier);
                         }

@@ -63,6 +63,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   doDamageToPlayer: 1
+  StartingPosition: {x: 0, y: 0, z: 0}
+  AutoDestoryDistance: 100
   Creator: {fileID: 0}
   isTracking: 0
   trackingTarget: {fileID: 0}

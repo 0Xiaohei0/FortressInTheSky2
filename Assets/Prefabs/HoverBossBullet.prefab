@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 579001713950159618}
   - component: {fileID: 5898425761207316624}
   - component: {fileID: 526260444239204336}
-  m_Layer: 9
-  m_Name: FireParticle
-  m_TagString: Untagged
+  m_Layer: 11
+  m_Name: HoverBossBullet
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,19 +50,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb33599883d452947a77c92e312bf1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 20
+  Damage: 5
   explosionRadius: 2.6
   explosionForce: 700
   explosionOffset: {x: 0, y: 0, z: 0}
-  explosionEffect: {fileID: 4291142568844124863, guid: 87da9ab6a33471a4693d2976eae1b686,
+  explosionEffect: {fileID: 4291142568844124863, guid: 81f13cb10d32d2d4c9eea1b83b890e29,
     type: 3}
   HitableLayers:
     serializedVersion: 2
-    m_Bits: 2184
+    m_Bits: 904
   ExplosionHitableLayers:
     serializedVersion: 2
     m_Bits: 128
-  doDamageToPlayer: 0
+  doDamageToPlayer: 1
   StartingPosition: {x: 0, y: 0, z: 0}
   AutoDestoryDistance: 100
   Creator: {fileID: 0}
@@ -70,8 +70,7 @@ MonoBehaviour:
   trackingTarget: {fileID: 0}
   speed: 5
   rotateSpeed: 200
-  damageText: {fileID: 8105566191677357764, guid: b73c8ac9aa9a736428c0164e4601a3a7,
-    type: 3}
+  damageText: {fileID: 0}
 --- !u!198 &579001713950159616
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -324,8 +323,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2
-      minScalar: 1
+      scalar: 1.22
+      minScalar: 0.16
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1353,9 +1352,9 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.66882944, b: 0.043137252, a: 1}
-        key1: {r: 1, g: 0.042452812, b: 0.042452812, a: 1}
-        key2: {r: 1, g: 0.042452812, b: 0.042452812, a: 0}
+        key0: {r: 0.36009255, g: 0.56486654, b: 0.6415094, a: 1}
+        key1: {r: 0.9004853, g: 1, b: 0.043137252, a: 1}
+        key2: {r: 0.043137252, g: 0.4362429, b: 1, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -1363,7 +1362,7 @@ ParticleSystem:
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
         ctime1: 44525
-        ctime2: 44525
+        ctime2: 45489
         ctime3: 0
         ctime4: 0
         ctime5: 0
@@ -4809,7 +4808,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f3b48363bd6de51478ff4802b430853e, type: 2}
+  - {fileID: 2100000, guid: 8186694bb60db07419472498f28ef72f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4871,8 +4870,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.3431866
-  m_Center: {x: -0.05104522, y: 0.11270027, z: 0.03976157}
+  m_Radius: 0.7350476
+  m_Center: {x: -0.013797581, y: -0.0822258, z: -0.019299269}
 --- !u!54 &5898425761207316624
 Rigidbody:
   m_ObjectHideFlags: 0

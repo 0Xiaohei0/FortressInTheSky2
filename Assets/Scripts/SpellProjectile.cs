@@ -11,6 +11,8 @@ public class SpellProjectile : MonoBehaviour
     [SerializeField] private LayerMask HitableLayers;
     [SerializeField] private LayerMask ExplosionHitableLayers;
     [SerializeField] public bool doDamageToPlayer;
+    [SerializeField] public Vector3 StartingPosition;
+    [SerializeField] public float AutoDestoryDistance;
 
     [Header("Counter Tracking")]
     [SerializeField] public Transform Creator;
@@ -25,12 +27,20 @@ public class SpellProjectile : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        StartingPosition = transform.position;
     }
     private void OnTriggerEnter(Collider other)
     {
         if (HitableLayers == (HitableLayers | (1 << other.gameObject.layer)))
         {
             Explode();
+        }
+    }
+    private void Update()
+    {
+        if ((transform.position - StartingPosition).magnitude >= AutoDestoryDistance)
+        {
+            Destroy(gameObject);
         }
     }
 

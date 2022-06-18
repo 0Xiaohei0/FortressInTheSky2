@@ -7,10 +7,12 @@ public class Damagable : MonoBehaviour
     public int currentHealth;
     public GameObject dropLootPrefab;
     public GameObject dropLootTarget;
+    public bool invinciable;
 
 
     public void takeDamage(int damage)
     {
+        if (invinciable) return;
         if (!healthBar.gameObject.activeInHierarchy)
         {
             healthBar.gameObject.SetActive(true);
