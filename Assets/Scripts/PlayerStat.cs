@@ -102,7 +102,6 @@ public class PlayerStat : MonoBehaviour
     public void useMana(int mana)
     {
         Mana -= mana;
-
     }
     public void RegenMana()
     {
