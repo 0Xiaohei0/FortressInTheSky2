@@ -5,6 +5,8 @@ public class HoverBotAI : Damagable
 
     Collider[] wallCollisions;
     [SerializeField] float wallCheckRadius;
+    [SerializeField] float wallCheckRadiusIdle;
+    [SerializeField] float wallCheckRadiusCombat;
     [SerializeField] LayerMask wallLayer;
     [SerializeField] Transform wallCheck;
 
@@ -39,6 +41,8 @@ public class HoverBotAI : Damagable
         hasTarget = wallCollisions.Length > 0;
         if (hasTarget)
         {
+
+            wallCheckRadius = wallCheckRadiusCombat;
             playerTransform = wallCollisions[0].transform;
             gunTransform.LookAt(playerTransform);
             if (facingLeft)
@@ -48,7 +52,10 @@ public class HoverBotAI : Damagable
             if (playerTransform.position.z > transform.position.z && facingLeft) Flip();
             else if (playerTransform.position.z < transform.position.z && !facingLeft) Flip();
         }
-
+        else
+        {
+            wallCheckRadius = wallCheckRadiusIdle;
+        }
     }
 
     private void Fire()

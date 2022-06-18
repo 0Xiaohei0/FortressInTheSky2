@@ -1,14 +1,17 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerStat : MonoBehaviour
 {
     public int MaxHealth;
     public int GemAmount;
-    public int Health;
+    private int health;
     public HealthBar healthBar;
     public HealthBar manaBar;
+    public TextMeshProUGUI healthText;
+    public TextMeshProUGUI manaText;
     public float MaxMana;
-    public float Mana;
+    private float mana;
     public float ManaRegenInterval;
     public float ManaRegenAmount;
 
@@ -16,6 +19,23 @@ public class PlayerStat : MonoBehaviour
     public int ManaRegenCost;
     public float ManaRegenAmountMultiplier;
     public float ManaRegenCostMultiplier;
+
+    public int Health
+    {
+        get => health; set
+        {
+            health = Mathf.Clamp(value, 0, MaxHealth); healthBar.UpdateHealth((float)Health / MaxHealth);
+            healthText.text = Mathf.Round(Health).ToString() + "/" + MaxHealth.ToString();
+        }
+    }
+    public float Mana
+    {
+        get => mana; set
+        {
+            mana = Mathf.Clamp(value, 0, MaxMana); manaText.text = Mathf.Round(Mana).ToString() + "/" + MaxMana.ToString();
+            manaBar.UpdateHealth((float)Mana / MaxMana);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -28,17 +48,17 @@ public class PlayerStat : MonoBehaviour
     public void takeDamage(int damage)
     {
         Health -= damage;
-        healthBar.UpdateHealth((float)Health / MaxHealth);
+
         if (Health <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
     public void useMana(int mana)
     {
         Mana -= mana;
-        manaBar.UpdateHealth((float)Mana / MaxMana);
+
     }
     public void RegenMana()
     {

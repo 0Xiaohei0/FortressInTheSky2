@@ -9955,7 +9955,7 @@ MonoBehaviour:
   dropLootPrefab: {fileID: 8541766019605836672, guid: 1d00e70d5bbb22d449995d152028c4b2,
     type: 3}
   dropLootTarget: {fileID: 0}
-  wallCheckRadius: 9.32
+  wallCheckRadius: 12.7
   wallLayer:
     serializedVersion: 2
     m_Bits: 256

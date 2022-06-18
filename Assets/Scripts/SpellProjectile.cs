@@ -43,10 +43,16 @@ public class SpellProjectile : MonoBehaviour
                 damagable.takeDamage(Damage);
                 if (damageText != null)
                 {
-                    Debug.Log("text");
                     DamageIndicator indicator = Instantiate(damageText, transform.position, Quaternion.identity).GetComponent<DamageIndicator>();
                     indicator.SetDamageText(Damage);
                 }
+                return;
+            }
+
+            PlayerStat playerStat = nearbyObjct.GetComponent<PlayerStat>();
+            if (playerStat != null)
+            {
+                playerStat.takeDamage(Damage);
             }
         }
         Destroy(gameObject);
