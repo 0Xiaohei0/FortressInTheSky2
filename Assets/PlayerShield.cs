@@ -53,7 +53,6 @@ public class PlayerShield : MonoBehaviour
             shieldCollisions = Physics.OverlapSphere(shield.transform.position, outerCounterRadius, shieldCheckLayers);
             if (shieldCollisions.Length > 0)
             {
-                Debug.Log(Time.time - lastInputTime);
                 if (Time.time - lastInputTime <= counterWindow)
                 {
                     foreach (Collider collider in shieldCollisions)
@@ -62,8 +61,15 @@ public class PlayerShield : MonoBehaviour
                         {
                             Rigidbody rb = collider.gameObject.GetComponent<Rigidbody>();
                             SpellProjectile sp = collider.gameObject.GetComponent<SpellProjectile>();
-                            rb.velocity = -rb.velocity;
-                            collider.tag = "PlayerBullet";
+                            if (sp.Creator != null)
+                            {
+                                sp.setTracking(sp.Creator);
+                            }
+                            else
+                            {
+                                rb.velocity = -rb.velocity;
+                            }
+                            collider.gameObject.tag = "DeflectedBullet";
                             sp.Damage = (int)(sp.Damage * damageMultiplier);
                         }
                     }
@@ -75,18 +81,13 @@ public class PlayerShield : MonoBehaviour
                         if (collider.tag == "EnemyBullet")
                         {
                             SpellProjectile spellProjectile = collider.gameObject.GetComponent<SpellProjectile>();
-                            spellProjectile.doDamage = false;
+                            spellProjectile.doDamageToPlayer = false;
                             spellProjectile.Explode();
                         }
                     }
                 }
             }
         }
-
-
-
-
-
         inputShieldLastFrame = inputShield;
     }
 }

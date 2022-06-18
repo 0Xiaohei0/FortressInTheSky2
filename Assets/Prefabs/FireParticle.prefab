@@ -58,11 +58,16 @@ MonoBehaviour:
     type: 3}
   HitableLayers:
     serializedVersion: 2
-    m_Bits: 648
+    m_Bits: 2184
   ExplosionHitableLayers:
     serializedVersion: 2
     m_Bits: 128
-  doDamage: 1
+  doDamageToPlayer: 0
+  Creator: {fileID: 0}
+  isTracking: 0
+  trackingTarget: {fileID: 0}
+  speed: 5
+  rotateSpeed: 200
   damageText: {fileID: 8105566191677357764, guid: b73c8ac9aa9a736428c0164e4601a3a7,
     type: 3}
 --- !u!198 &579001713950159616

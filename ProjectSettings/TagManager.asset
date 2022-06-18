@@ -8,6 +8,7 @@ TagManager:
   - DropLootTracker
   - EnemyBullet
   - PlayerBullet
+  - DeflectedBullet
   layers:
   - Default
   - TransparentFX
@@ -18,10 +19,10 @@ TagManager:
   - AimPlane
   - Enemy
   - Player
-  - Bullet
-  - 
-  - 
-  - 
+  - PlayerBullet
+  - EnemyBarrier
+  - EnemyBullet
+  - DeflectedBullet
   - 
   - 
   - 

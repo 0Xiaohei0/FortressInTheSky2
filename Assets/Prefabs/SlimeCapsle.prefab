@@ -272,7 +272,7 @@ MonoBehaviour:
   wallCheckRadius: 0.13
   wallLayer:
     serializedVersion: 2
-    m_Bits: 136
+    m_Bits: 1160
   wallCheck: {fileID: 480503361759579972}
 --- !u!54 &6696455203749416150
 Rigidbody:

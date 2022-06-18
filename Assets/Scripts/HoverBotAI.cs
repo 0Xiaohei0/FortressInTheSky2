@@ -16,11 +16,14 @@ public class HoverBotAI : Damagable
     [Header("Fireing")]
     public Transform FirePoint1;
     public Transform FirePoint2;
+    public Transform targetedPosition;
     private int NextFirePoint;
     public GameObject hoverTurretBullet;
     public float hoverTurretBulletSpeed;
     public float hoverTurretFireInterval;
     public bool hasTarget;
+
+
 
     private bool facingLeft = true;
 
@@ -65,6 +68,7 @@ public class HoverBotAI : Damagable
             Transform FirePoint = NextFirePoint == 1 ? FirePoint1 : FirePoint2;
             GameObject createdBullet = Instantiate(hoverTurretBullet, FirePoint.position, FirePoint.rotation);
             NextFirePoint = NextFirePoint == 1 ? 2 : 1;
+            createdBullet.GetComponent<SpellProjectile>().Creator = targetedPosition;
             createdBullet.GetComponent<Rigidbody>().AddForce(hoverTurretBulletSpeed * (playerTransform.position - FirePoint.transform.position).normalized);
         }
 

@@ -27,6 +27,9 @@ public class PlayerStat : MonoBehaviour
     public float ManaRegenAmountMultiplier;
     public float ManaRegenCostMultiplier;
 
+    public Vector3 RespawnLocation;
+    public float OriginalxCord;
+
     public int Health
     {
         get => health; set
@@ -57,7 +60,6 @@ public class PlayerStat : MonoBehaviour
                 MaxHealth += 5; MaxMana += 5;
             }
             experienceBar.fillAmount = experience / maxExperience;
-            Debug.Log(experience + "/" + maxExperience);
         }
     }
 
@@ -80,6 +82,8 @@ public class PlayerStat : MonoBehaviour
         Experience = 0;
         MaxHealth = 100;
         Level = 1;
+        OriginalxCord = transform.position.x;
+        RespawnLocation = transform.position;
     }
     // Start is called before the first frame update
     void Start()
@@ -96,6 +100,7 @@ public class PlayerStat : MonoBehaviour
         if (Health <= 0)
         {
             gameObject.SetActive(false);
+            Respawn();
         }
     }
 
@@ -124,5 +129,13 @@ public class PlayerStat : MonoBehaviour
     public int getManaRegenCost()
     {
         return Mathf.RoundToInt(ManaRegenCost * Mathf.Pow(ManaRegenCostMultiplier, ManaRegenLevel));
+    }
+
+    public void Respawn()
+    {
+        transform.position = new Vector3(OriginalxCord, RespawnLocation.y, RespawnLocation.z);
+        Health = maxHealth;
+        Mana = MaxMana;
+        gameObject.SetActive(true);
     }
 }

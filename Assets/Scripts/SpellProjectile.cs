@@ -10,15 +10,41 @@ public class SpellProjectile : MonoBehaviour
     [SerializeField] private GameObject explosionEffect;
     [SerializeField] private LayerMask HitableLayers;
     [SerializeField] private LayerMask ExplosionHitableLayers;
-    [SerializeField] public bool doDamage;
+    [SerializeField] public bool doDamageToPlayer;
+
+    [Header("Counter Tracking")]
+    [SerializeField] public Transform Creator;
+    [SerializeField] public bool isTracking;
+    [SerializeField] public Transform trackingTarget;
+    private Rigidbody rb;
+    public float speed;
+    public float rotateSpeed = 200f;
+
     public GameObject damageText;
 
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (HitableLayers == (HitableLayers | (1 << other.gameObject.layer)))
         {
-
             Explode();
+        }
+    }
+
+    public void setTracking(Transform target)
+    {
+        trackingTarget = target;
+        isTracking = true;
+    }
+
+    void FixedUpdate()
+    {
+        if (isTracking && trackingTarget != null)
+        {
+            rb.velocity = rb.velocity.magnitude * (Creator.position - rb.transform.position).normalized;
         }
     }
 
@@ -27,6 +53,8 @@ public class SpellProjectile : MonoBehaviour
         Instantiate(explosionEffect, transform.position, transform.rotation);
         CinemachineShake.Instance.ShakeCamera(2f, 0.2f);
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        if (gameObject.tag == "DeflectedBullet")
+            Debug.Log("Exploding" + gameObject.tag);
         foreach (Collider nearbyObjct in colliders)
         {
             if (ExplosionHitableLayers == (ExplosionHitableLayers | (1 << nearbyObjct.gameObject.layer)))
@@ -34,13 +62,11 @@ public class SpellProjectile : MonoBehaviour
                 Rigidbody rb = nearbyObjct.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
-
                     rb.AddExplosionForce(explosionForce, transform.position + explosionOffset, explosionRadius);
-
                 }
             }
 
-            if (doDamage && HitableLayers == (HitableLayers | (1 << nearbyObjct.gameObject.layer)))
+            if (HitableLayers == (HitableLayers | (1 << nearbyObjct.gameObject.layer)))
             {
                 Damagable damagable = nearbyObjct.GetComponent<Damagable>();
                 if (damagable != null)
@@ -51,16 +77,20 @@ public class SpellProjectile : MonoBehaviour
                         DamageIndicator indicator = Instantiate(damageText, transform.position, Quaternion.identity).GetComponent<DamageIndicator>();
                         indicator.SetDamageText(Damage);
                     }
-                    return;
                 }
 
-                PlayerStat playerStat = nearbyObjct.GetComponent<PlayerStat>();
-                if (playerStat != null)
+                if (doDamageToPlayer)
                 {
-                    playerStat.takeDamage(Damage);
+                    PlayerStat playerStat = nearbyObjct.GetComponent<PlayerStat>();
+                    if (playerStat != null)
+                    {
+                        playerStat.takeDamage(Damage);
+                    }
                 }
             }
         }
+        if (gameObject.tag == "DeflectedBullet")
+            Debug.Log("Destorying" + gameObject.tag);
         Destroy(gameObject);
     }
 
