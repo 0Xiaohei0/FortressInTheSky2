@@ -34,9 +34,11 @@ public class HoverBossAI : Damagable
         anim = GetComponent<Animator>();
         hoverBossCore.material = hoverBossNormalMat;
         currentHealth = maxHealth;
+        healthBar.UpdateHealth((float)currentHealth / maxHealth);
         dropLootTarget = GameObject.FindWithTag("DropLootTracker");
         NextFirePoint = 1;
         playerTransform = GameObject.FindWithTag("Player").transform;
+        gameOverManager = GameObject.FindWithTag("GameOverManager").GetComponent<GameOverManager>();
     }
 
     // Update is called once per frame
@@ -129,8 +131,8 @@ public class HoverBossAI : Damagable
     }
     private void OnDisable()
     {
-        Debug.Log("ending");
-        gameOverManager.EndGame();
+        if (currentHealth <= 0)
+            gameOverManager.EndGame();
     }
     public void SetEnrageMat()
     {

@@ -4951,8 +4951,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1547577794885614114}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.95, z: 0}
+  m_LocalRotation: {x: -0.000000007916241, y: -0, z: 0.99905163, w: -0.04354215}
+  m_LocalPosition: {x: 0.023, y: 0.798, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4961,7 +4961,7 @@ Transform:
   - {fileID: 1547577795826121912}
   m_Father: {fileID: 1547577795711404356}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 184.991}
 --- !u!1 &1547577795007142415
 GameObject:
   m_ObjectHideFlags: 0
@@ -5011,7 +5011,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1547577795437588314
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9925,8 +9925,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1547577795711404356}
   - component: {fileID: 1547577795711404475}
-  - component: {fileID: 1547577795711404474}
   - component: {fileID: 1547577795711404473}
+  - component: {fileID: 1942465083}
   m_Layer: 7
   m_Name: HoverBoss
   m_TagString: Untagged
@@ -9942,8 +9942,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1547577795711404357}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 156.414, y: 23.33, z: 119.74}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.50000006, z: 0.50000006}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1547577794885614113}
@@ -9969,41 +9969,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.94740486
   m_Center: {x: 5.6198703e-24, y: 1.0981579, z: -5.6198703e-24}
---- !u!114 &1547577795711404474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1547577795711404357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a22dc9d613fc2b04ea0a7f733304d7c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 200
-  healthBar: {fileID: 1547577796450153098}
-  currentHealth: 0
-  dropLootPrefab: {fileID: 8541766019605836672, guid: 1d00e70d5bbb22d449995d152028c4b2,
-    type: 3}
-  dropLootTarget: {fileID: 0}
-  wallCheckRadius: 12.7
-  wallCheckRadiusIdle: 12.7
-  wallCheckRadiusCombat: 16.7
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  wallCheck: {fileID: 1547577796165464834}
-  playerTransform: {fileID: 0}
-  gunTransform: {fileID: 1547577794885614113}
-  FirePoint1: {fileID: 1547577795007142414}
-  FirePoint2: {fileID: 1547577795826121912}
-  targetedPosition: {fileID: 1492190960}
-  hoverTurretBullet: {fileID: 579001713950159646, guid: e93216cfa9609824792ea5acf5726a2d,
-    type: 3}
-  hoverTurretBulletSpeed: 500
-  hoverTurretFireInterval: 1
-  hasTarget: 0
 --- !u!95 &1547577795711404473
 Animator:
   serializedVersion: 4
@@ -10014,7 +9979,7 @@ Animator:
   m_GameObject: {fileID: 1547577795711404357}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5de61108445fc884f860123e14ccca6b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 67bfdf7c5586e984bb64ea7b604025c5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -10024,6 +9989,44 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1942465083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547577795711404357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c265f0b930d6adc4ca8920c2d7ea438d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 2000
+  healthBar: {fileID: 0}
+  currentHealth: 0
+  dropLootPrefab: {fileID: 8541766019605836672, guid: 1d00e70d5bbb22d449995d152028c4b2,
+    type: 3}
+  dropLootTarget: {fileID: 0}
+  invinciable: 0
+  FirePoint1: {fileID: 1547577795007142414}
+  FirePoint2: {fileID: 1547577795826121912}
+  playerTransform: {fileID: 0}
+  hoverBossBullet1: {fileID: 579001713950159646, guid: 9f42202644fc31445918d06dfde0f730,
+    type: 3}
+  hoverBossBullet2: {fileID: 579001713950159646, guid: f4059f687f4e63448b7e2a4cb0bb5105,
+    type: 3}
+  hoverBossCore: {fileID: 4682604625011050646}
+  hoverBossEnrageMat: {fileID: 2100000, guid: 1dfefd723ed79434b9ff75e096236a91, type: 2}
+  hoverBossNormalMat: {fileID: 2100000, guid: 27cc7ffd8dc63ea43831937f7177ba9c, type: 2}
+  gunTransform: {fileID: 1547577794885614113}
+  targetedPosition: {fileID: 1492190960}
+  hoverTurretBulletSpeed: 1000
+  hoverTurretFireInterval: 1
+  hasTarget: 0
+  isFiringStage1: 0
+  isFiringStage2: 0
+  Stage2FireInterval: 0.7
+  gameOverManager: {fileID: 0}
 --- !u!1 &1547577795826121913
 GameObject:
   m_ObjectHideFlags: 0
@@ -10285,7 +10288,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 27cc7ffd8dc63ea43831937f7177ba9c, type: 2}
+      objectReference: {fileID: 2100000, guid: 1dfefd723ed79434b9ff75e096236a91, type: 2}
     - target: {fileID: 919132149155446097, guid: 8b401c6c0c68b054f9529d93909220ca,
         type: 3}
       propertyPath: m_Name
@@ -10296,6 +10299,12 @@ PrefabInstance:
 --- !u!4 &1364767379162141468 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8b401c6c0c68b054f9529d93909220ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 1547577795226203383}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4682604625011050646 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3061904764030682015, guid: 8b401c6c0c68b054f9529d93909220ca,
     type: 3}
   m_PrefabInstance: {fileID: 1547577795226203383}
   m_PrefabAsset: {fileID: 0}
