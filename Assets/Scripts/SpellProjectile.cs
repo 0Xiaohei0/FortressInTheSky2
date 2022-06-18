@@ -3,13 +3,14 @@ using UnityEngine;
 public class SpellProjectile : MonoBehaviour
 {
 
-    [SerializeField] private int Damage;
+    [SerializeField] public int Damage;
     [SerializeField] private float explosionRadius;
     [SerializeField] private float explosionForce;
     [SerializeField] private Vector3 explosionOffset;
     [SerializeField] private GameObject explosionEffect;
     [SerializeField] private LayerMask HitableLayers;
     [SerializeField] private LayerMask ExplosionHitableLayers;
+    [SerializeField] public bool doDamage;
     public GameObject damageText;
 
     private void OnTriggerEnter(Collider other)
@@ -39,7 +40,7 @@ public class SpellProjectile : MonoBehaviour
                 }
             }
 
-            if (HitableLayers == (HitableLayers | (1 << nearbyObjct.gameObject.layer)))
+            if (doDamage && HitableLayers == (HitableLayers | (1 << nearbyObjct.gameObject.layer)))
             {
                 Damagable damagable = nearbyObjct.GetComponent<Damagable>();
                 if (damagable != null)

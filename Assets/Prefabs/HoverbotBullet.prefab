@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 526260444239204336}
   m_Layer: 9
   m_Name: HoverbotBullet
-  m_TagString: Untagged
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,10 +58,11 @@ MonoBehaviour:
     type: 3}
   HitableLayers:
     serializedVersion: 2
-    m_Bits: 776
+    m_Bits: 904
   ExplosionHitableLayers:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 128
+  doDamage: 1
   damageText: {fileID: 0}
 --- !u!198 &579001713950159616
 ParticleSystem:
