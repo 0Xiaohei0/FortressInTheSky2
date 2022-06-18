@@ -9956,6 +9956,8 @@ MonoBehaviour:
     type: 3}
   dropLootTarget: {fileID: 0}
   wallCheckRadius: 12.7
+  wallCheckRadiusIdle: 12.7
+  wallCheckRadiusCombat: 16.7
   wallLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -9967,7 +9969,7 @@ MonoBehaviour:
   hoverTurretBullet: {fileID: 579001713950159646, guid: e93216cfa9609824792ea5acf5726a2d,
     type: 3}
   hoverTurretBulletSpeed: 500
-  hoverTurretFireInterval: 0.5
+  hoverTurretFireInterval: 1
   hasTarget: 0
 --- !u!95 &1547577795711404473
 Animator:

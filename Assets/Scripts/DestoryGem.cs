@@ -6,7 +6,7 @@ public class DestoryGem : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerStat>().GemAmount++;
+            other.GetComponent<PlayerStat>().Experience++;
             Destroy(gameObject);
         }
     }

@@ -1,9 +1,10 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStat : MonoBehaviour
 {
-    public int MaxHealth;
+    private int maxHealth;
     public int GemAmount;
     private int health;
     public HealthBar healthBar;
@@ -14,6 +15,12 @@ public class PlayerStat : MonoBehaviour
     private float mana;
     public float ManaRegenInterval;
     public float ManaRegenAmount;
+
+    public Image experienceBar;
+    private float experience;
+    public float maxExperience;
+    private int level;
+    public TextMeshProUGUI levelText;
 
     public int ManaRegenLevel;
     public int ManaRegenCost;
@@ -37,6 +44,43 @@ public class PlayerStat : MonoBehaviour
         }
     }
 
+    public float Experience
+    {
+        get => experience;
+        set
+        {
+            experience = value;
+            if (experience >= maxExperience)
+            {
+                experience -= maxExperience;
+                Level++;
+                MaxHealth += 5; MaxMana += 5;
+            }
+            experienceBar.fillAmount = experience / maxExperience;
+            Debug.Log(experience + "/" + maxExperience);
+        }
+    }
+
+    public int Level
+    {
+        get => level; set { level = value; levelText.text = "Lv." + value.ToString(); }
+    }
+
+    public int MaxHealth
+    {
+        get => maxHealth; set
+        {
+            maxHealth = value;
+            Health = value;
+        }
+    }
+
+    private void Awake()
+    {
+        Experience = 0;
+        MaxHealth = 100;
+        Level = 1;
+    }
     // Start is called before the first frame update
     void Start()
     {

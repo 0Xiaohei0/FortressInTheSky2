@@ -28,31 +28,36 @@ public class SpellProjectile : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (Collider nearbyObjct in colliders)
         {
-            Rigidbody rb = nearbyObjct.GetComponent<Rigidbody>();
-            if (rb != null)
+            if (ExplosionHitableLayers == (ExplosionHitableLayers | (1 << nearbyObjct.gameObject.layer)))
             {
-                if (ExplosionHitableLayers == (ExplosionHitableLayers | (1 << rb.gameObject.layer)))
+                Rigidbody rb = nearbyObjct.GetComponent<Rigidbody>();
+                if (rb != null)
                 {
+
                     rb.AddExplosionForce(explosionForce, transform.position + explosionOffset, explosionRadius);
+
                 }
             }
 
-            Damagable damagable = nearbyObjct.GetComponent<Damagable>();
-            if (damagable != null)
+            if (HitableLayers == (HitableLayers | (1 << nearbyObjct.gameObject.layer)))
             {
-                damagable.takeDamage(Damage);
-                if (damageText != null)
+                Damagable damagable = nearbyObjct.GetComponent<Damagable>();
+                if (damagable != null)
                 {
-                    DamageIndicator indicator = Instantiate(damageText, transform.position, Quaternion.identity).GetComponent<DamageIndicator>();
-                    indicator.SetDamageText(Damage);
+                    damagable.takeDamage(Damage);
+                    if (damageText != null)
+                    {
+                        DamageIndicator indicator = Instantiate(damageText, transform.position, Quaternion.identity).GetComponent<DamageIndicator>();
+                        indicator.SetDamageText(Damage);
+                    }
+                    return;
                 }
-                return;
-            }
 
-            PlayerStat playerStat = nearbyObjct.GetComponent<PlayerStat>();
-            if (playerStat != null)
-            {
-                playerStat.takeDamage(Damage);
+                PlayerStat playerStat = nearbyObjct.GetComponent<PlayerStat>();
+                if (playerStat != null)
+                {
+                    playerStat.takeDamage(Damage);
+                }
             }
         }
         Destroy(gameObject);
